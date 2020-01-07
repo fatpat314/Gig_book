@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h1>SWING DADDY O</h1>
+    <h1>SWING Songs</h1>
     <!-- So here we want to allow for the title of the data base to be used as a link -->
     <br><br>
     <div class="container row-3">
@@ -12,4 +12,9 @@
     </div>
 
     <h1> Add a peice of music </h1>
+    <a href='/swing_songs/new'>New Swing Song</a>
+    {% for swing_song in swing_songs %}
+        <h2>{{ swing_song.title}}</h2>
+        <small>{{ swing_song.description }}</small>
+    {% endfor %}
 {% endblock %}

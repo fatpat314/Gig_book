@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method='POST' action='/swing_songs'>
+    <fieldset>
+        <legend>New Swing Song</legend>
+    <!-- TITLE -->
+            <p>
+                <label for='title'>Title</label><br>
+                <input type='text' name='description' />
+            </p>
+        <!-- Description -->
+            <p>
+                <label for='description'>Description</label><br>
+                <input type='text' name='description' />
+            </p>
+
+        <!-- Swing song ids -->
+            <p>
+                <label for='swing_song-ids'>Swing song</label><br>
+                <p>Add the ID of the song you want to include in your Gig_book</p>
+                <textarea id='swing_song-ids' name='swing_song_ids' rows='10'></textarea>
+            </p>
+    </fieldset>
+
+            <!-- BUTTON -->
+            <p>
+                <button type='submit'>Save Swing song</button>
+            </p>
+</form>
+{% endblock %}

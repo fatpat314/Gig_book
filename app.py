@@ -1,4 +1,9 @@
 from flask import Flask, render_template
+from pymongo import MongoClient
+
+client = MongoClient()
+db = client.Swing
+swing_songs = db.swing_songs
 
 app = Flask (__name__)
 
@@ -10,11 +15,7 @@ def index():
 @app.route('/swing')
 def swing():
     """Show Swing songs"""
-    return render_template('swing.html')
-
-@app.route('/Benny_Goodman')
-def Benny_Goodman():
-    return render_template('Benny_Goodman.html')
+    return render_template('swing.html', swing_songs=swing_songs.find())
 
 
 if __name__ == '__main__':

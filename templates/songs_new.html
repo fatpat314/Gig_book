@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method='POST' action='/list' <!-- what does this action need to do -->
+    <fieldset>
+        <legend>New Song</legend>
+    <!-- TITLE -->
+            <p>
+                <label for='title'>Title</label><br>
+                <input type='text' name='title' />
+            </p>
+    <!-- Composer -->
+            <p>
+                <label for='composer'>Composer</label><br>
+                <input type='text' name='composer' />
+            </p>
+    <!-- Subgenre -->
+            <p>
+                <label for='subgenre'>Genre</label><br>
+                    <select name= 'subgenre'>
+                      <option value="swing">Swing</option>
+                      <option value="bebop">Bebop</option>
+                      <option value="big_band">Big Band</option>
+                      <option value="django">Django</option>
+                      <option value="latin">Latin</option>
+                      <option value="dixieland">Dixieland</option>
+                      <br>
+                      <option value="baroque">Baroque</option>
+                      <option value="modern_composition">Modern Composition</option>
+                      <option value="opera">Opera</option>
+                      <option value="romantic">Romantic</option>
+                      <option value="impressionist">Impressionist</option>
+                      <option value="minimalism">Minimalism</option>
+                      <br>
+                      <option value="adult_contemperary">Adult Contemporary</option>
+                      <option value="worldbeat">Worldbeat</option>
+                      <option value="k-pop">K-pop</option>
+                      <option value="europop">Europop</option>
+                      <option value="arabpop">Arab pop</option>
+                      <option value="folkpop">Folk pop</option>
+                      <br>
+                      <option value="rap">Rap</option>
+                      <option value="lyrical_hip_hop">Lyrical Hip Hop</option>
+                      <option value="new_school_hip_hop">New School Hip Hop</option>
+                      <option value="old_school_rap">Old School Rap</option>
+                      <option value="hyphy">Hyphy</option>
+                      <option value="dirty_south">Dirty South</option>
+                      <br>
+                      <option value="blues">Blues</option>
+                      <option value="hard_rock">Hard Rock</option>
+                      <option value="metal">Metal</option>
+                      <option value="classic_rock">Classic Rock</option>
+                      <option value="punk_rock">Punk Rock</option>
+                      <option value="alernitive_rock">Alternative Rock</option>
+                      <br>
+                      <option value="bluegrass">Bluegrass</option>
+                      <option value="country_pop">Country Pop</option>
+                      <option value="rockabilly">Rockabilly</option>
+                      <option value="western_swing">Western Swing</option>
+                      <option value="americana">Americana</option>
+                      <option value="outlaw_country">Outlaw Country</option>
+
+                    </select>
+
+    </fieldset>
+
+            <!-- BUTTON -->
+            <p>
+                <button type='submit'>Save Song</button>
+            </p>
+</form>
+{% endblock %}

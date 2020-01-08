@@ -1,0 +1,20 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Song list</h1>
+<a href='/songs_new'>New Song</a>
+<br>
+
+{% for song in songs %}
+    <h1>Title: <a href='/list/{{ song._id }}'> {{ song.title }}</a></h1>
+    <h2>Composer: {{ song.composer}}</h2>
+    <br>
+{% endfor %}
+
+{#<p><form method='POST' action='{{ _id }}/delete'>
+    <input type='hidden' name='_method' value='DELETE'>
+    <button class='btn btn-primary' type='submit'>Delete</button>
+    </form>#}
+
+{% endblock %}

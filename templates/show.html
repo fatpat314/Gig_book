@@ -1,9 +1,19 @@
 <!-- templates/show.html -->
-{% extends 'base.html'}
+{% extends 'base.html' %}
 
 {% block content %}
-TEST
-<h1>{{ song.title }}</h1>
-<h2>{{ song.composer}}</h2>
+
+<h1>Title: {{ song.title }}</h1>
+<h2>Composer: {{ song.composer}}</h2>
+<h3>Image of sheetmusic goes here</h3>
+
+
+<!--Delete Button-->
+<p><form method='POST' action='/detail/{{ song._id }}/delete'>
+    <button type='submit'>Delete</button>
+</form></p>
+
+<!--Edit Button-->
+<p><a href='/detail/{{ song._id }}/edit'>Edit</a></p>
 
 {% endblock %}

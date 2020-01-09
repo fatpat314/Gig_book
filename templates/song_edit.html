@@ -1,0 +1,27 @@
+<!-- templates/song_edit.html-->
+{% extends 'base.html' %}
+
+{% block content %}
+<form method='POST' action='/list/{{ song._id }}'
+    <feildset>
+        <legend>Edit Song</legend>
+
+        <!-- Title -->
+        <p>
+            <label for='name'>Name</label><br>
+            <input id='name' type='text' name='title' />
+        </p>
+
+        <!-- Composer -->
+        <p>
+            <label for="composer">Composer</label><br>
+            <input id='composer' type='text' name='composer'
+        </p>
+
+        <!-- Save -->
+        <p>
+            <button type="submit">Save Edit</button>
+        </p>
+
+        <h1>TEST</h1>
+{% endblock %}

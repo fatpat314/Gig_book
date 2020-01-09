@@ -7,7 +7,7 @@
 <br>
 
 {% for song in songs %}
-    <h1>Title: <a href='/list/{{ song._id }}'> {{ song.title }}</a></h1>
+    <h1>Title: <a href='/detail/{{ song._id }}'> {{ song.title }}</a></h1>
     <h2>Composer: {{ song.composer}}</h2>
     <br>
 {% endfor %}

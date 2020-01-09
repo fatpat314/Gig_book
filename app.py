@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import os
 
 #host = os.eviron.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
 client = MongoClient() #(host=f'{host}?retryWrites=false')
 db = client.Gig_book #client.get_default_database()
 songs_collection = db.songs
+comments = db.comments
 
 app = Flask (__name__)
 
@@ -48,16 +50,16 @@ def song_submit():
 @app.route('/detail/<song_id>')
 def song_show(song_id):
     """show a single song"""
-    print("HERE 3")
     song = songs_collection.find_one({'_id': ObjectId(song_id)})
-    return render_template('show.html', song=song)
+
+    song_comments = comments.find({'song_id': ObjectId(song_id)})
+    return render_template('show.html', song=song, comments=song_comments)
 
 """Edit the song"""
 @app.route('/detail/<song_id>/edit')
 def song_edit(song_id):
     """Edit song"""
     song = songs_collection.find_one({'_id': ObjectId(song_id)})
-    print("Here4")
     return render_template('song_edit.html')
 
 """ Update the song """
@@ -83,6 +85,25 @@ def song_delete(song_id):
     songs_collection.delete_one({'_id': ObjectId(song_id)})
     return redirect(url_for('index'))
 
+"""Comments"""
+@app.route('/detail/comments', methods=['POST'])
+def comments_new():
+    comment = {
+        'title': request.form.get('title'),
+        'content': request.form.get('content'),
+        'song_id': ObjectId(request.form.get('song_id'))
+    }
+
+    print('comment')
+    comment_id = comment.insert_one(comment).inserted_id
+    return redirect(url_for('show', song_id=request.form.get(song_id)))
+
+@app.route('/detail/comments/<comment_id>', methods=['POST'])
+def comments_delete(comment_id):
+    comment = comments.find_one({'_id': ObjectId(comment_id)})
+    comments.delete_one({'_id': ObjectId(comment_id)})
+    return redirect(url_for('show', song_id=comment.get('song_id')))
+    #I think this URL redirect is not right. I want it to go to details page. 
 
 
 

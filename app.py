@@ -4,8 +4,8 @@ from bson.objectid import ObjectId
 import os
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
-client = MongoClient() #MongoClient(host=f'{host}?retryWrites=false')
-db = client.Gig_book #client.get_default_database()
+client = MongoClient(host=f'{host}?retryWrites=false') #MongoClient
+db = client.get_default_database() #client.Gig_book
 songs_collection = db.songs
 comments = db.comments
 
@@ -66,7 +66,7 @@ def song_edit(song_id):
 
 """By executive decision we have chosen not to have the ability to update enteries.
 This is because it is importent to keep multiple interpritations of songs as users
-could disagree. example:'Thats a Am not a C....'""" 
+could disagree. example:'Thats a Am not a C....'"""
 # """ Update the song """
 # @app.route('/detail/<song_id>', methods=['POST'])
 # def song_update(song_id):

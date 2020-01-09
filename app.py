@@ -5,7 +5,7 @@ import os
 
 host = os.eviron.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
 client = (host=f'{host}?retryWrites=false') #MongoClient()
-db = client.get_default_database() client.Gig_book
+db = client.get_default_database() #client.Gig_book
 songs_collection = db.songs
 comments = db.comments
 

@@ -4,8 +4,8 @@ from bson.objectid import ObjectId
 import os
 
 #host = os.eviron.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
-client = MongoClient() #(host=f'{host}?retryWrites=false')
-db = client.Gig_book #client.get_default_database()
+client = (host=f'{host}?retryWrites=false') #MongoClient()
+db = client.get_default_database() client.Gig_book
 songs_collection = db.songs
 comments = db.comments
 
@@ -103,7 +103,7 @@ def comments_delete(comment_id):
     comment = comments.find_one({'_id': ObjectId(comment_id)})
     comments.delete_one({'_id': ObjectId(comment_id)})
     return redirect(url_for('show', song_id=comment.get('song_id')))
-    #I think this URL redirect is not right. I want it to go to details page. 
+    #I think this URL redirect is not right. I want it to go to details page.
 
 
 

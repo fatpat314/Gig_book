@@ -55,6 +55,7 @@ def song_show(song_id):
     song_comments = comments.find({'song_id': ObjectId(song_id)})
     return render_template('show.html', song=song, comments=song_comments)
 
+
 """Edit the song"""
 @app.route('/detail/<song_id>/edit')
 def song_edit(song_id):
@@ -62,20 +63,24 @@ def song_edit(song_id):
     song = songs_collection.find_one({'_id': ObjectId(song_id)})
     return render_template('song_edit.html')
 
-""" Update the song """
-@app.route('/detail/<song_id>', methods=['POST'])
-def song_update(song_id):
-    song_ids = request.form.get('song_ids').split()
 
-    updated_song = {
-        'title': request.form.get('title'),
-        'composer': request.form.get('composer'),
-        }
-    songs_collection.update_one(
-        {'_id': ObjectId(playlist_id)},
-        {'$set': updated_song})
-
-    return redirect(url_for('show', song_id=song_id))
+"""By executive decision we have chosen not to have the ability to update enteries.
+This is because it is importent to keep multiple interpritations of songs as users
+could disagree. example:'Thats a Am not a C....'""" 
+# """ Update the song """
+# @app.route('/detail/<song_id>', methods=['POST'])
+# def song_update(song_id):
+#     song_ids = request.form.get('song_ids').split()
+#
+#     updated_song = {
+#         'title': request.form.get('title'),
+#         'composer': request.form.get('composer'),
+#         }
+#     songs_collection.update_one(
+#         {'_id': ObjectId(playlist_id)},
+#         {'$set': updated_song})
+#
+#     return redirect(url_for('show', song_id=song_id))
 
 
 """Delete the song"""
@@ -86,7 +91,7 @@ def song_delete(song_id):
     return redirect(url_for('index'))
 
 """Comments"""
-@app.route('/detail/<song_id>/comments', methods=['POST'])
+@app.route('/detail/comments', methods=['POST'])
 def comments_new():
     comment = {
         'title': request.form.get('title'),
@@ -94,16 +99,18 @@ def comments_new():
         'song_id': ObjectId(request.form.get('song_id'))
     }
 
-    print('comment')
-    comment_id = comment.insert_one(comment).inserted_id
-    return redirect(url_for('show', song_id=request.form.get(song_id)))
+
+    comment_id = comments.insert_one(comment).inserted_id
+    return redirect(url_for('song_show', song_id=request.form.get('song_id')))
 
 """Comment Delete"""
 @app.route('/detail/comments/<comment_id>', methods=['POST'])
 def comments_delete(comment_id):
     comment = comments.find_one({'_id': ObjectId(comment_id)})
+    print(comment)
+    print(comment_id)
     comments.delete_one({'_id': ObjectId(comment_id)})
-    return redirect(url_for('show', song_id=comment.get('song_id')))
+    return redirect(url_for('song_show', song_id=comment.get('song_id')))
     #I think this URL redirect is not right. I want it to go to details page.
 
 

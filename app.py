@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 host = os.eviron.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
-client = MongoClient(host=host)
+client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()#client.Gig_book
 songs_collection = db.songs
 

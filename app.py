@@ -4,8 +4,8 @@ from bson.objectid import ObjectId
 import os
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
-client = MongoClient(host=f'{host}?retryWrites=false') #MongoClient()
-db = client.get_default_database() #client.Gig_book
+client = MongoClient() #MongoClient(host=f'{host}?retryWrites=false')
+db = client.Gig_book #client.get_default_database()
 songs_collection = db.songs
 comments = db.comments
 
@@ -86,7 +86,7 @@ def song_delete(song_id):
     return redirect(url_for('index'))
 
 """Comments"""
-@app.route('/detail/comments', methods=['POST'])
+@app.route('/detail/<song_id>/comments', methods=['POST'])
 def comments_new():
     comment = {
         'title': request.form.get('title'),
@@ -98,6 +98,7 @@ def comments_new():
     comment_id = comment.insert_one(comment).inserted_id
     return redirect(url_for('show', song_id=request.form.get(song_id)))
 
+"""Comment Delete"""
 @app.route('/detail/comments/<comment_id>', methods=['POST'])
 def comments_delete(comment_id):
     comment = comments.find_one({'_id': ObjectId(comment_id)})

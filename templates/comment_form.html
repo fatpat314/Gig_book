@@ -1,6 +1,6 @@
 <!-- templates/comment_form.html -->
 
-<form action='/detail/comments' methods='POST'>
+<form action='/detail/{{ song._id }}/comments' methods='POST'> <!-- problum here -->
     <input type='hidden' value='{{ song._id }}' name='song_id'
     <fieldset>
         <legend>Add a Comment</legend>

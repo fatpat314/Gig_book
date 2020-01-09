@@ -3,6 +3,7 @@
 
 {% block content %}
 
+
 <h1>Title: {{ song.title }}</h1>
 <h2>Composer: {{ song.composer}}</h2>
 <h3>Image of sheetmusic goes here</h3>
@@ -15,5 +16,12 @@
 
 <!--Edit Button-->
 <p><a href='/detail/{{ song._id }}/edit'>Edit</a></p>
+
+{% include 'comment_form.html'%}
+<br>
+
+{% for comment in coments %}
+    {% include 'comment.html' %}
+{% endfor %}
 
 {% endblock %}

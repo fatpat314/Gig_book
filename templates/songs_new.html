@@ -64,13 +64,26 @@
 
                 <h1>Image of sheetmusic goes here</h1>
 
+                <h3>File input</h3>
 
+                <form method="POST" action="/upload" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for='inputFile'>File input</label>
+                        <input type='file' name='File'>
+                    </div>
+
+                </form>
+            <br>
+
+            <!-- BUTTON -->
+                        <p>
+                            <button type='submit'>Save Song</button>
+                        </p>
 
     </fieldset>
 
-            <!-- BUTTON -->
-            <p>
-                <button type='submit'>Save Song</button>
-            </p>
+<br>
+
+
 </form>
 {% endblock %}

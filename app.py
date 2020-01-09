@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
+from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import os
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
-client = MongoClient(host=f'{host}?retryWrites=false') #MongoClient
-db = client.get_default_database() #client.Gig_book
+client = MongoClient() #MongoClient(host=f'{host}?retryWrites=false')
+db = client.Gig_book #client.get_default_database()
 songs_collection = db.songs
 comments = db.comments
 
@@ -39,7 +40,8 @@ def song_submit():
     song = {
         'title': request.form.get('title'),
         'composer': request.form.get('composer'),
-        'subgenre': request.form.get('subgenre')
+        'subgenre': request.form.get('subgenre'),
+        'fileContents': request.form.get('fileContents')
         }
     song_id = songs_collection.insert_one(song).inserted_id
     return redirect(url_for('subgenre_index', subgenre=song["subgenre"]))
@@ -112,6 +114,17 @@ def comments_delete(comment_id):
     comments.delete_one({'_id': ObjectId(comment_id)})
     return redirect(url_for('song_show', song_id=comment.get('song_id')))
     #I think this URL redirect is not right. I want it to go to details page.
+
+# """Upload an img"""
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if 'inputFile' in request.files:
+#         file = request.files['inputFile']
+#         songs_collection.save_file(inputFile.filename, inputFile)
+#
+#
+#
+#     return file.filename
 
 
 

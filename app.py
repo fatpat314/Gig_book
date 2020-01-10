@@ -115,8 +115,10 @@ def comments_delete(comment_id):
     print(comment_id)
     comments.delete_one({'_id': ObjectId(comment_id)})
     return redirect(url_for('song_show', song_id=comment.get('song_id')))
-    #I think this URL redirect is not right. I want it to go to details page.
 
+
+""" I could not figure out how to save and recall user uploaded images
+in the comming weeks I hope to be able to add that ability """
 # """Upload an img"""
 # @app.route('/upload', methods=['POST'])
 # def upload():

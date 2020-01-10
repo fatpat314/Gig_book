@@ -63,6 +63,13 @@ class SongsTest(TestCase):
         self.assertEqual(result.status, '302 FOUND')
         mock_insert.assert_called_with(sample_song)
 
+    @mock.patch('pymongo.collection.Collection.update_one')
+    def test_update_song(self, mock_update):
+            result = self.client.post(f'/detail/{sample_song_id}', data=sample_form_data)
+
+            self.assertEqual(result.status, '302 FOUND')
+            mock_update.assert_called_with({'_id': sample_song_id}, {'$set': sample_song})
+
     @mock.patch('pymongo.collection.Collection.delete_one')
     def test_delete_song(self, mock_delete):
         form_data = {'_method': 'DELETE'}

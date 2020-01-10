@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from flask_dropzone import Dropzone
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 import os
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Gig_book')
@@ -11,6 +13,7 @@ songs_collection = db.songs
 comments = db.comments
 
 app = Flask (__name__)
+dropzone = Dropzone(app)
 
 
 """HOME"""
@@ -41,7 +44,7 @@ def song_submit():
         'title': request.form.get('title'),
         'composer': request.form.get('composer'),
         'subgenre': request.form.get('subgenre'),
-        'fileContents': request.form.get('fileContents')
+
         }
     song_id = songs_collection.insert_one(song).inserted_id
     return redirect(url_for('subgenre_index', subgenre=song["subgenre"]))
@@ -63,28 +66,28 @@ def song_show(song_id):
 def song_edit(song_id):
     """Edit song"""
     song = songs_collection.find_one({'_id': ObjectId(song_id)})
-    return render_template('song_edit.html', song=song, title="Edit Song")
+    return render_template('song_edit.html', song_id=song_id, title="Edit Song")
 
 
 """By executive decision we have chosen not to have the ability to update enteries.
 This is because it is importent to keep multiple interpritations of songs as users
 could disagree. example:'Thats a Am not a C....'"""
 """ Update the song """
-# @app.route('/detail/<song_id>', methods=['POST'])
-# def song_update(song_id):
-#     #song_ids = request.form.get('song_ids').split()
-#
-#     updated_song = {
-#         'title': request.form.get('title'),
-#         'composer': request.form.get('composer'),
-#         'subgenre': request.form.get('subgenre'),
-#         'fileContents': fileContents
-#         }
-#     songs_collection.update_one(
-#         {'_id': ObjectId(song_id)},
-#         {'$set': updated_song})
-#     print("TEST")
-#     return redirect(url_for('detail', subgenre=song["subgenre"]))
+@app.route('/detail/<song_id>', methods=['POST'])
+def song_update(song_id):
+    #song_ids = request.form.get('song_ids').split()
+
+    updated_song = {
+        'title': request.form.get('title'),
+        'composer': request.form.get('composer'),
+        'subgenre': request.form.get('subgenre'),
+
+        }
+    songs_collection.update_one(
+        {'_id': ObjectId(song_id)},
+        {'$set': updated_song})
+    print("TEST")
+    return redirect(url_for('index', song_id=song_id))
 
 
 """Delete the song"""
@@ -129,7 +132,6 @@ in the comming weeks I hope to be able to add that ability """
 #
 #
 #     return file.filename
-
 
 
 if __name__ == '__main__':

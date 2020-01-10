@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method='POST' action='/list'>
+<form method='POST' action='/detail/{{ song_id }}'>
     <input type='hidden' name='_method' value='PUT'/>
     <feildset>
         <legend>Edit Song</legend>
@@ -68,7 +68,7 @@
                         </select>
                         <!-- Save -->
                         <p>
-                            <button type="submit">Save Edit</button>
+                            <button type="submit" value='Update'>Save Edit</button>
                         </p>
 
 

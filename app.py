@@ -72,17 +72,19 @@ could disagree. example:'Thats a Am not a C....'"""
 # """ Update the song """
 # @app.route('/detail/<song_id>', methods=['POST'])
 # def song_update(song_id):
-#     song_ids = request.form.get('song_ids').split()
+#     #song_ids = request.form.get('song_ids').split()
 #
 #     updated_song = {
 #         'title': request.form.get('title'),
 #         'composer': request.form.get('composer'),
+#         'subgenre': request.form.get('subgenre'),
+#         'fileContents': fileContents
 #         }
 #     songs_collection.update_one(
-#         {'_id': ObjectId(playlist_id)},
+#         {'_id': ObjectId(song_id)},
 #         {'$set': updated_song})
-#
-#     return redirect(url_for('show', song_id=song_id))
+#     print("TEST")
+#     return redirect(url_for('index', subgenre=song["subgenre"]))
 
 
 """Delete the song"""

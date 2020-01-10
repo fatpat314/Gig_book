@@ -63,13 +63,13 @@ def song_show(song_id):
 def song_edit(song_id):
     """Edit song"""
     song = songs_collection.find_one({'_id': ObjectId(song_id)})
-    return render_template('song_edit.html')
+    return render_template('song_edit.html', song=song, title="Edit Song")
 
 
 """By executive decision we have chosen not to have the ability to update enteries.
 This is because it is importent to keep multiple interpritations of songs as users
 could disagree. example:'Thats a Am not a C....'"""
-# """ Update the song """
+""" Update the song """
 # @app.route('/detail/<song_id>', methods=['POST'])
 # def song_update(song_id):
 #     #song_ids = request.form.get('song_ids').split()
@@ -84,7 +84,7 @@ could disagree. example:'Thats a Am not a C....'"""
 #         {'_id': ObjectId(song_id)},
 #         {'$set': updated_song})
 #     print("TEST")
-#     return redirect(url_for('index', subgenre=song["subgenre"]))
+#     return redirect(url_for('detail', subgenre=song["subgenre"]))
 
 
 """Delete the song"""
